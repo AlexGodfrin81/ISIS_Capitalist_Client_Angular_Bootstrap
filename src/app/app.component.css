@@ -5,3 +5,8 @@
 * {
     border: 1px solid red;
 }
+
+#worldlogo {
+    width: 150px;
+    height: 75px;
+}

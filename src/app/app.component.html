@@ -476,7 +476,10 @@
 -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4">Nom du monde</div>
+    <div class="col-md-4">
+      <img id="worldlogo" [attr.src]="server+'icones/'+world.logo" />
+      <span id="worldname">{{world.name}}</span>
+    </div>
     <div class="col-md-4">Monnaie</div>
     <div class="col-md-4">Buy+ID</div>
   </div>
@@ -490,24 +493,24 @@
   </div>
   <div class="col-md-4">
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[0]" class="product"></app-product>
     </div>
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[1]" class="product"></app-product>
     </div>
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[2]" class="product"></app-product>
     </div>
   </div>
   <div class="col-md-4">
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[3]" class="product"></app-product>
     </div>
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[4]" class="product"></app-product>
     </div>
     <div class="row">
-      <app-product></app-product>
+      <app-product [prod]="world.products.product[5]" class="product"></app-product>
     </div>
   </div>
 </div>

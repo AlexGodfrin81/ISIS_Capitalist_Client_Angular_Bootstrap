@@ -7,7 +7,7 @@ import { World, Pallier, Product } from './world';
 })
 export class RestserviceService {
   
-  server = "http://localhost:8080/adventureISIS";
+  server = "http://localhost:8081/";
   user = "";
   constructor(private http: HttpClient) { }
 
