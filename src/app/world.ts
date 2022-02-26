@@ -1,7 +1,7 @@
 
 export class World {
-    name : string = "Summoners War"
-    logo : string = "logo.png"
+    name : string = ""
+    logo : string = ""
     money: number = 0
     score: number = 0
     totalangels: number = 0
