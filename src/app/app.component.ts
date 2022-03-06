@@ -32,4 +32,21 @@ export class AppComponent {
     this.world.money += p.revenu * p.quantite;
     this.world.score += p.revenu * p.quantite;
   }
+
+  onBuy(number: number){
+    this.world.money = this.world.money - number;
+  }
+ 
+  hire(manager: Pallier) {
+    if (this.world.money > manager.seuil) {
+      this.world.money -= manager.seuil;
+      manager.unlocked = true;
+      this.world.products.product.forEach(element => {
+        if (element.id == manager.idcible) {
+          element.managerUnlocked = true;
+        }
+      });
+    }
+  }
+
 }

@@ -55,6 +55,18 @@
   <div class="app-modal-body">
     <div *ngFor="let manager of world.managers.pallier">
       <!-- a completer pour réaliser le rendu d’une ligne de manager -->
+      <div *ngIf="!manager.unlocked" class="row" id="ManagerCell">
+        <div class="col-md-4 text-center">
+          <img [attr.src]="server + '/icones/' + manager.logo" class="round" />
+        </div>
+        <div class="col-md-8">
+          <button class="HireButton" [disabled]=" manager.seuil > world.money || world.products.product[manager.idcible - 1].quantite <= 0" 
+            (click)="hire(manager)" >
+            Engager
+          </button>
+        </div>
+      </div>
+      <div class="ManagerName">Manager {{ manager.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
