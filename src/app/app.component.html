@@ -5,42 +5,62 @@
       <span id="worldname">{{world.name}}</span>
     </div>
     <div class="col-md-4" id="money">
-     <span><span [innerHTML]="world.money | bigvalue" class="money"></span> € </span>
+      <span><span [innerHTML]="world.money | bigvalue" class="money"></span> € </span>
     </div>
     <div class="col-md-4">Buy+ID</div>
   </div>
   <div class="col-md-3">
     <div class="bouton">
-    <button id='unlocks' class="row">Unlocks</button><br/>
-    <button id="cashUpgrades" class="row">Cash Upgrades</button><br/>
-    <button id="angelUpgrades" class="row">Angels Upgrades</button><br/>
-    <button id="managers" class="row">Managers</button><br/>
-    <button id="investors" class="row">Investors</button>
-    </div> 
-  </div>
-  <div class="col-md-4">
-    <div class="row">
-      <app-product [prod]="world.products.product[0]" class="product"></app-product>
-    </div>
-    <div class="row">
-      <app-product [prod]="world.products.product[1]" class="product"></app-product>
-    </div>
-    <div class="row">
-      <app-product [prod]="world.products.product[2]" class="product"></app-product>
+      <button id='unlocks' class="row">Unlocks</button><br />
+      <button id="cashUpgrades" class="row">Cash Upgrades</button><br />
+      <button id="angelUpgrades" class="row">Angels Upgrades</button><br />
+      <button id="managers" class="row" data-toggle="modal" (click)="managersModal.show()">Managers</button><br />
+      <button id="investors" class="row">Investors</button>
     </div>
   </div>
   <div class="col-md-4">
     <div class="row">
-      <app-product [prod]="world.products.product[3]" class="product"></app-product>
+      <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[4]" class="product"></app-product>
+      <app-product [prod]="world.products.product[1]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[5]" class="product"></app-product>
+      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
+    </div>
+    <div class="row">
+      <app-product [prod]="world.products.product[4]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
+    </div>
+    <div class="row">
+      <app-product [prod]="world.products.product[5]" class="product" (notifyProduction)="onProductionDone($event)">
+      </app-product>
     </div>
   </div>
 </div>
+<!--Modal-->
+<app-modal #managersModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Managers make you feel better !</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let manager of world.managers.pallier">
+      <!-- a completer pour réaliser le rendu d’une ligne de manager -->
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button>
+  </div>
+</app-modal>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

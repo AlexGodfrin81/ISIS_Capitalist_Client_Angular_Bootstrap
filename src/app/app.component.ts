@@ -14,11 +14,22 @@ export class AppComponent {
   title = 'ISIS_CAPITALIST_CLIENT'; 
   world: World = new World();
   server: string;
+  qtmulti: any;
+  price = ["x1", "x10", "x100", "max"];
+ // username: string;
 
   constructor(private service: RestserviceService) {
     this.server = service.getServer();
     service.getWorld().then(world => {
       this.world = world;
+      this.qtmulti = this.price[0];
     });
+  }
+
+
+  onProductionDone(p:Product){
+    //console.log("username : " + this.username);
+    this.world.money += p.revenu * p.quantite;
+    this.world.score += p.revenu * p.quantite;
   }
 }
