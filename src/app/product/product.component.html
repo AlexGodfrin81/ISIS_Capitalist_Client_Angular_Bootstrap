@@ -1,2 +1,7 @@
-<img id="productlogo" [attr.src]="server+'icones/'+product?.logo" />
+<div class="products">
+<img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
 <p>{{ this.product.name }}</p>
+</div>
+<div class="progress" #bar>
+    <span class="qtLabel">{{product.quantite}}</span>
+</div>

@@ -10,3 +10,22 @@
     width: 150px;
     height: 75px;
 }
+
+button {
+    width: 200px;
+    background-color: rgb(243, 151, 75);
+    border: solid 1px rgba(47, 25, 6, 0.712);
+    padding: 10px 40px;
+    margin: 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+button:hover {
+    background-color:rgba(47, 25, 6, 0.712) ;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: white;
+    
+}

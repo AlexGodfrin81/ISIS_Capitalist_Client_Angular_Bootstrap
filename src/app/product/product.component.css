@@ -1,5 +1,17 @@
 
 #productlogo {
-    width: 180px;
-    height: 135px;
+    width: 135px;
+    height: 95px;
+   
 }
+
+.progress {
+    height: 20px;
+    width: 125px;
+    padding-left: 20px;
+    
+  }
+
+  p{
+      padding-left: 20px;
+  }

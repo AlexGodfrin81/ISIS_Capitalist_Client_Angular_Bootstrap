@@ -29,7 +29,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/progressbar.js/dist/progressbar.js"]
+
           },
           "configurations": {
             "production": {
