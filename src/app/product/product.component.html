@@ -2,6 +2,8 @@
     <img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
     <p>{{ this.product.name }}</p>
 </div>
-<mat-progress-bar class="progressbar" [value]="progressbarvalue" #bar >
-    <span class="qtLabel">{{product.quantite}}</span>
+<div class="quantite">
+    {{ this.product.quantite }}
+  </div>
+<mat-progress-bar class="progressbar" [value]="progressbarvalue" >   
 </mat-progress-bar>

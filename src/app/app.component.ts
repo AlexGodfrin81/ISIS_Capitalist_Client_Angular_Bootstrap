@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
-import { ToastrService, ToastrModule } from 'ngx-toastr';
-
-
-
+import {ToasterModule, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: "./app.component.html",
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
@@ -17,16 +14,16 @@ export class AppComponent {
   server: string;
   qtmulti: any;
   price = ["x1", "x10", "x100", "max"];
-  toastrService : ToastrService;
+  toasterService : ToasterService;
  // username: string;
 
-  constructor(private service: RestserviceService, private toastr: ToastrService) {
+  constructor(private service: RestserviceService, toasterService : ToasterService) {
     this.server = service.getServer();
     service.getWorld().then(world => {
       this.world = world;
       this.qtmulti = this.price[0];
     });
-    this.toastrService= toastr;
+   this.toasterService = toasterService;
   }
 
 
@@ -47,16 +44,11 @@ export class AppComponent {
       this.world.products.product.forEach(element => {
         if (element.id == manager.idcible) {
           element.managerUnlocked = true;
-          this.toastr.success('success, Manager Hired ! ', element.name );
-          
+          this.toasterService.pop("success", "Manager Hired ! ", element.name );
+      
         }
       });
     }
   }
-
-  /*showToaster(){
-    console.log('miaou');
-    this.toastr.success('ça a marché', this.world.managers.pallier[0].name);
-  }*/
 
 }

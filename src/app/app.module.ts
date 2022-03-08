@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { BigvaluePipe } from './bigvalue.pipe';
 import { ModalComponent } from './modal/modal.component';
-import { ToastrModule } from 'ngx-toastr';
+import { ToasterModule, ToasterService} from 'angular2-toaster';
+import { RestserviceService } from './restservice.service';
 
 
 @NgModule({
@@ -24,9 +25,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     AppRoutingModule,
     MatProgressBarModule,
-    ToastrModule.forRoot()
+    ToasterModule
+    
   ],
-  providers: [],
+  providers: [RestserviceService, ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
