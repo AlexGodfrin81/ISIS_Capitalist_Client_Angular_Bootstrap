@@ -51,4 +51,16 @@ export class AppComponent {
     }
   }
 
+  newManager(){
+    let res = false;
+    this.world.managers.pallier.forEach(value => {
+      if(!value.unlocked){
+        if (value.seuil < this.world.money){
+          res = true;
+        }
+      }
+    });
+    return res;
+  }
+
 }

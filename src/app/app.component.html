@@ -14,7 +14,8 @@
       <button id='unlocks' class="row">Unlocks</button><br />
       <button id="cashUpgrades" class="row">Cash Upgrades</button><br />
       <button id="angelUpgrades" class="row">Angels Upgrades</button><br />
-      <button id="managers" class="row" data-toggle="modal" (click)="managersModal.show()">Managers</button><br />
+      <button id="managers" class="row" data-toggle="modal" (click)="managersModal.show()">
+      <span class="badge">{{this.newManager() ? "NEW" : "" }}</span>Managers</button> 
       <button id="investors" class="row">Investors</button>
     </div>
   </div>
@@ -67,7 +68,7 @@
           </button>
         </div>
       </div>
-      <div class="ManagerName">Manager {{ manager.name }}</div>
+      <div class="ManagerName">{{ manager.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
