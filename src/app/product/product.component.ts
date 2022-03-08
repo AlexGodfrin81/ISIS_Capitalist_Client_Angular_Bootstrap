@@ -11,10 +11,9 @@ const ProgressBar = require("progressbar.js");
   styleUrls: ['./product.component.css']
 })
 
-
-
 export class ProductComponent implements OnInit {
-
+  
+  progressbarvalue : number = 0;
   product: Product = new Product();
   server = "http://localhost:8081/";
   progressbar: any;
@@ -44,9 +43,11 @@ export class ProductComponent implements OnInit {
   constructor(private service: RestserviceService) { }
 
   ngOnInit() {
+    /*console.log("j'ai été instancié")
     this.progressbar = new
       ProgressBar.Line(this.progressBarItem.nativeElement,
         { strokeWidth: 50, color: '#00ff00' });
+    console.log("allo ?")*/
 
     setInterval(()=> {
       this.calcScore();
@@ -55,10 +56,10 @@ export class ProductComponent implements OnInit {
   }
 
   startFabrication() {
+    console.log(this.product.name);
     if (this.product.quantite >= 1 && this.product.timeleft == 0) {
       this.product.timeleft = this.product.vitesse;
-      this.progressbar.set(0);
-      this.progressbar.animate(1, { duration: this.product.vitesse });
+   
       this.lastupdate = Date.now();
     }
   }
@@ -74,10 +75,12 @@ export class ProductComponent implements OnInit {
         this.product.timeleft = this.product.timeleft - temps_ecoule;
         if(this.product.timeleft <= 0){
           this.product.timeleft = 0;
-          this.progressbar.set(0);
+          this.progressbarvalue = 0;
            // on prévient le composant parent que ce produit a généré son revenu.
            this.notifyProduction.emit(this.product);
            this.service.putProduct(this.product);
+        } else {
+          this.progressbarvalue = Math.round(((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100)
         }
       }
     }

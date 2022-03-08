@@ -1,7 +1,7 @@
 <div class="products">
-<img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
-<p>{{ this.product.name }}</p>
+    <img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
+    <p>{{ this.product.name }}</p>
 </div>
-<div class="progress" #bar>
+<mat-progress-bar class="progressbar" [value]="progressbarvalue" #bar >
     <span class="qtLabel">{{product.quantite}}</span>
-</div>
+</mat-progress-bar>

@@ -27,9 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
-            "scripts": ["node_modules/progressbar.js/dist/progressbar.js"]
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
+            ]
+            
 
           },
           "configurations": {
@@ -97,7 +99,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/progressbar.js/dist/progressbar.js"]
           }
         }
       }

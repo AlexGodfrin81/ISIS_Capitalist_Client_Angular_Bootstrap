@@ -18,7 +18,7 @@
       <button id="investors" class="row">Investors</button>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4 col-produit">
     <div class="row">
       <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)">
       </app-product>
@@ -32,7 +32,7 @@
       </app-product>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4 col-produit">
     <div class="row">
       <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)">
       </app-product>
@@ -82,4 +82,3 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<router-outlet></router-outlet>

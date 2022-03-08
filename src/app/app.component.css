@@ -2,8 +2,10 @@
     color: red;
 }
 
-* {
-    border: 1px solid red;
+
+.col-produit{
+    padding-left: 15%;
+    /* padding-right: 5%; */
 }
 
 #worldlogo {
