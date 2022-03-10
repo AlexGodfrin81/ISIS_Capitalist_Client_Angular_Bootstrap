@@ -11,7 +11,7 @@ import { BigvaluePipe } from './bigvalue.pipe';
 import { ModalComponent } from './modal/modal.component';
 import { ToasterModule, ToasterService} from 'angular2-toaster';
 import { RestserviceService } from './restservice.service';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { RestserviceService } from './restservice.service';
     HttpClientModule,
     AppRoutingModule,
     MatProgressBarModule,
-    ToasterModule
-    
+    ToasterModule,
+    FormsModule
   ],
   providers: [RestserviceService, ToasterService],
   bootstrap: [AppComponent]

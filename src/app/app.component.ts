@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
-import {ToasterModule, ToasterService } from 'angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-root',
@@ -9,34 +9,56 @@ import {ToasterModule, ToasterService } from 'angular2-toaster';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ISIS_CAPITALIST_CLIENT'; 
+  title = 'ISIS_CAPITALIST_CLIENT';
   world: World = new World();
   server: string;
   qtmulti: any;
-  price = ["x1", "x10", "x100", "max"];
-  toasterService : ToasterService;
- // username: string;
+  cpt :number = 0;
+  price = [1, 10, 100, "max"];
+  toasterService: ToasterService;
+  username: string = "";
 
-  constructor(private service: RestserviceService, toasterService : ToasterService) {
+  constructor(private service: RestserviceService, toasterService: ToasterService) {
     this.server = service.getServer();
     service.getWorld().then(world => {
       this.world = world;
       this.qtmulti = this.price[0];
     });
-   this.toasterService = toasterService;
+    this.toasterService = toasterService;
   }
 
+  ngOnInit() {
+    if (localStorage.getItem("username") != null) {
+      this.username = String(localStorage.getItem('username'));
+    } else {
+      if (this.username == "") {
+        this.username = "captain" + Math.floor(Math.random() * 10000);
+        console.log("username jsuis al" + this.username);
+        localStorage.setItem("username", this.username);
+      }
+    }
+  }
 
-  onProductionDone(p:Product){
+  onProductionDone(p: Product) {
     //console.log("username : " + this.username);
     this.world.money += p.revenu * p.quantite;
     this.world.score += p.revenu * p.quantite;
   }
 
-  onBuy(number: number){
-    this.world.money = this.world.money - number;
+  onBuy(number: number) {
+    if (this.world.money - number > 0){
+      this.world.money = this.world.money - number;      
+    }
   }
- 
+
+  commutePrice(){
+    if (this.cpt == 3){
+      this.cpt = 0;
+    }else{
+      this.cpt++;
+    }
+  }
+
   hire(manager: Pallier) {
     if (this.world.money > manager.seuil) {
       this.world.money -= manager.seuil;
@@ -44,23 +66,29 @@ export class AppComponent {
       this.world.products.product.forEach(element => {
         if (element.id == manager.idcible) {
           element.managerUnlocked = true;
-          this.toasterService.pop("success", "Manager Hired ! ", element.name );
-      
+          this.toasterService.pop("success", "Manager Hired ! ", element.name);
+
         }
       });
     }
   }
 
-  newManager(){
+  newManager() {
     let res = false;
     this.world.managers.pallier.forEach(value => {
-      if(!value.unlocked){
-        if (value.seuil < this.world.money){
+      if (!value.unlocked) {
+        if (value.seuil < this.world.money) {
           res = true;
         }
       }
     });
     return res;
+  }
+
+  onUsernameChanged() {
+    localStorage.setItem("username", this.username);
+    this.service.setUser(this.username);
+    console.log("service username" + this.service.getUser())
   }
 
 }

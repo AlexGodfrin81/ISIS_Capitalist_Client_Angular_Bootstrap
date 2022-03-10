@@ -9,6 +9,7 @@ export class RestserviceService {
   
   server = "http://localhost:8081/";
   user = "";
+  
   constructor(private http: HttpClient) { }
 
   private handleError(error: any): Promise<any> {
