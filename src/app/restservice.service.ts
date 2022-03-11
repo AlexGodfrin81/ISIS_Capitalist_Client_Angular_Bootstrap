@@ -48,10 +48,10 @@ export class RestserviceService {
     }).toPromise().catch(this.handleError);
   };
 
-  /*putManager(manager: Pallier): Promise<Pallier>{
+  putManager(manager: Pallier): Promise<Pallier>{
     return this.http.put(this.server + "adventureisis/generic/manager", manager,{
       headers: this.setHeaders(this.user)
     }).toPromise().catch(this.handleError);
-  }*/
+  }
 }
 

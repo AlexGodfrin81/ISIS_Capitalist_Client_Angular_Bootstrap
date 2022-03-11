@@ -31,3 +31,9 @@ button:hover {
     color: white;
     
 }
+
+.btnCommute{
+    width: 50px;
+    margin: 5px;
+    padding: 5px;
+}

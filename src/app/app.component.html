@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-4" id="money">
       <span><span [innerHTML]="world.money | bigvalue" class="money"></span> € </span>
-      <button (click)="commutePrice()">{{ this.price[0] }}</button>
+      <button class="btnCommute" (click)="commutePrice()">{{ qtmulti }}</button>
     </div>
     <div class="col-md-4">
       <input type="text" 
@@ -26,30 +26,30 @@
   </div>
   <div class="col-md-4 col-produit">
     <div class="row">
-      <button class="btn-acheter" (click)="onBuy(world.products.product[0].cout)">Améliorer pour {{ this.world.products.product[0].cout }}</button>
-      <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      
+      <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[1]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      <app-product [prod]="world.products.product[1]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
   </div>
   <div class="col-md-4 col-produit">
     <div class="row">
-      <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[4]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      <app-product [prod]="world.products.product[4]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[5]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti">
+      <app-product [prod]="world.products.product[5]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
   </div>

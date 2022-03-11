@@ -14,7 +14,7 @@ export class AppComponent {
   server: string;
   qtmulti: any;
   cpt :number = 0;
-  price = [1, 10, 100, "max"];
+  price = ["x1", "x10", "x100", "xMax"];
   toasterService: ToasterService;
   username: string = "";
 
@@ -26,6 +26,8 @@ export class AppComponent {
     });
     this.toasterService = toasterService;
   }
+
+
 
   ngOnInit() {
     if (localStorage.getItem("username") != null) {
@@ -52,10 +54,11 @@ export class AppComponent {
   }
 
   commutePrice(){
-    if (this.cpt == 3){
-      this.cpt = 0;
+    let index = this.price.indexOf(this.qtmulti);
+    if(index < this.price.length -1){
+      this.qtmulti = this.price[index +1];
     }else{
-      this.cpt++;
+      this.qtmulti = this.price[0];
     }
   }
 

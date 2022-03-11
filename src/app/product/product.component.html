@@ -8,3 +8,8 @@
   </div>
 <mat-progress-bar class="progressbar" [value]="progressbarvalue" >   
 </mat-progress-bar>
+<div class="col-md-12">
+  <button class="btnBuyProduct" ng-model="button"
+   (click)="buyProduct()">
+Buy {{qteMulti()}} monsters for {{numberTransformer.transform(totalCost) }} € </button>
+</div> 

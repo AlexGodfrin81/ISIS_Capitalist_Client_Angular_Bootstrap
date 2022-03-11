@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { BigvaluePipe } from '../bigvalue.pipe';
 import { RestserviceService } from '../restservice.service';
 import { Product } from '../world';
 
@@ -12,16 +13,19 @@ const ProgressBar = require("progressbar.js");
 })
 
 export class ProductComponent implements OnInit {
-  
-  progressbarvalue : number = 0;
+
+  progressbarvalue: number = 0;
   product: Product = new Product();
   server = "http://localhost:8081/";
   progressbar: any;
   lastupdate = 0;
   _qtmulti: any;
-  money:number = 0;
-  qtemax:number = 0;
-  
+  _money: number = 0;
+  qtemax: number = 0;
+  totalCost: number = 0;
+  numberTransformer : BigvaluePipe;
+  canBuy: boolean = false;
+
 
 
 
@@ -31,16 +35,25 @@ export class ProductComponent implements OnInit {
     this.lastupdate = Date.now();
   }
 
-  @Input() set qtmulti(value:string){
+  @Input() set qtmulti(value: string) {
     this._qtmulti = value;
-    if(this._qtmulti && this.product) this.calcMaxCanBuy();
-
+    if (this._qtmulti && this.product) this.calcMaxCanBuy();
+    this.calcQteMulti();
   }
+
+  @Input()
+  set money(value: number){
+    this._money = value;
+    this.calcQteMulti();
+  }
+  
 
 
   @ViewChild('bar') progressBarItem: any;
 
-  constructor(private service: RestserviceService) { }
+  constructor(private service: RestserviceService) {
+    this.numberTransformer = new BigvaluePipe();
+   }
 
   ngOnInit() {
     /*console.log("j'ai été instancié")
@@ -49,9 +62,9 @@ export class ProductComponent implements OnInit {
         { strokeWidth: 50, color: '#00ff00' });
     console.log("allo ?")*/
 
-    setInterval(()=> {
+    setInterval(() => {
       this.calcScore();
-    },100);
+    }, 100);
 
   }
 
@@ -59,26 +72,26 @@ export class ProductComponent implements OnInit {
     console.log(this.product.name);
     if (this.product.quantite >= 1 && this.product.timeleft == 0) {
       this.product.timeleft = this.product.vitesse;
-   
+
       this.lastupdate = Date.now();
     }
   }
 
-  calcScore(){
-    if(this.product.managerUnlocked && this.product.timeleft == 0){
+  calcScore() {
+    if (this.product.managerUnlocked && this.product.timeleft == 0) {
       this.startFabrication();
     }
-    if(this.product.quantite >= 1){
+    if (this.product.quantite >= 1) {
       let temps_ecoule = Date.now() - this.lastupdate;
       this.lastupdate = Date.now();
-      if(this.product.timeleft != 0){
+      if (this.product.timeleft != 0) {
         this.product.timeleft = this.product.timeleft - temps_ecoule;
-        if(this.product.timeleft <= 0){
+        if (this.product.timeleft <= 0) {
           this.product.timeleft = 0;
           this.progressbarvalue = 0;
-           // on prévient le composant parent que ce produit a généré son revenu.
-           this.notifyProduction.emit(this.product);
-           this.service.putProduct(this.product);
+          // on prévient le composant parent que ce produit a généré son revenu.
+          this.notifyProduction.emit(this.product);
+          this.service.putProduct(this.product);
         } else {
           this.progressbarvalue = Math.round(((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100)
         }
@@ -86,16 +99,61 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  calcMaxCanBuy(){
+  calcMaxCanBuy() {
     let x = this.product.cout;
     let c = this.product.croissance;
-    this.qtemax = Math.floor(Math.log(-(this.money*(1-c))/x+1)/Math.log(c));
+    let prix = x * c**(this.product.quantite+1);
+    this.qtemax = Math.floor(Math.log(-(this._money * (1 - c)) / prix + 1) / Math.log(c));
+    console.log(this.qtemax);
     return this.qtemax
+  }
+
+  qteMulti(){
+    return this._qtmulti==="xMax" ? "x" + this.qtemax : this._qtmulti;
+  }
+
+  calcQteMulti(){
+    let x = this.product.cout;
+    let c = this.product.croissance;
+    let prix = x * c**(this.product.quantite+1);
+    if (this._qtmulti == "x1"){
+      this.totalCost = prix;
+    } else if (this._qtmulti == "x10") {
+      this.totalCost = prix * ((1 - c ** 10) / (1 - c));
+    } else if (this._qtmulti == "x100") {
+      this.totalCost = prix * ((1 - c ** 100) / (1 - c));
+    } else {
+      let n = this.calcMaxCanBuy();
+      this.totalCost = prix * ((1 - c ** n) / (1 - c));
     }
+  }
 
-  @Output() 
-  notifyProduction : EventEmitter<Product> = new EventEmitter <Product>();
+  buyProduct() {
+    this.calcQteMulti();
+    console.log(this._qtmulti, this.calcMaxCanBuy());
+    if (this._qtmulti == "x1" && this.calcMaxCanBuy() >= 1) {
+      this.product.quantite += 1;
+      this.notifyBuy.emit(this.totalCost);
+    } else if (this._qtmulti == "x10" && this.calcMaxCanBuy() >= 10) {
+      this.product.quantite += 10;
+      this.notifyBuy.emit(this.totalCost);
+    } else if (this._qtmulti == "x100" && this.calcMaxCanBuy() >= 100) {
+      this.product.quantite += 100;
+      this.notifyBuy.emit(this.totalCost);
+    } else if (this._qtmulti == "xMax") {
+      this.product.quantite += this.calcMaxCanBuy();
+      this.notifyBuy.emit(this.totalCost);
+    } else {
+      alert("Vous n'avez pas assez d'argent");
+    }
+    
+    this.service.putProduct(this.product);
+  }
 
+  @Output()
+  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output()
+  notifyBuy: EventEmitter<number> = new EventEmitter<number>();
 
 
 
