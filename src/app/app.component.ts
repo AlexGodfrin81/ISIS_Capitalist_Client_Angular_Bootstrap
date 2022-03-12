@@ -89,9 +89,13 @@ export class AppComponent {
   }
 
   onUsernameChanged() {
+    if (this.username == ""){
+      this.username = "Captain" + Math.floor(Math.random()*10000);
+    }
     localStorage.setItem("username", this.username);
     this.service.setUser(this.username);
     console.log("service username" + this.service.getUser())
+    window.location.reload();
   }
 
 }
