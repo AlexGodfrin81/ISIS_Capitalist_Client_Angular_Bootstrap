@@ -65,23 +65,13 @@ export class AppComponent {
 
   onProductionDone(p: Product) {
     //console.log("username : " + this.username);
-   let bonus = 1;
-     p.palliers.pallier.forEach(elt => {
-       if (p.quantite >= elt.seuil && elt.typeratio == "gain"){
-         bonus += elt.ratio;
-       }
-     });
-  //     this.world.allunlocks.pallier.forEach(elt => {
-  //      if (this.allProductAbove(elt.seuil) && elt.typeratio == "gain"){
-  //        bonus += elt.ratio;
-  //      }
-  //    });
-  //  this.world.allunlocks.pallier.forEach(elt => {
-  //      if (this.allProductAbove(elt.seuil) && elt.typeratio == "vitesse"){
-  //        this.productsComponent?.forEach((p: { calcAllUpgradesSpeed: (arg0: Pallier) => any; }) => p.calcAllUpgradesSpeed(elt));
-  //      }
-  //    });
-     if (bonus > 1) {bonus--;}
+    let bonus = 1;
+    p.palliers.pallier.forEach(elt => {
+      if (p.quantite >= elt.seuil && elt.typeratio == "gain"){
+        bonus += elt.ratio;
+      }
+    });
+    if (bonus > 1) {bonus--;}
     this.world.money += p.revenu * p.quantite * bonus;
     this.world.score += p.revenu * p.quantite * bonus;
     this.calculNbAnge();
