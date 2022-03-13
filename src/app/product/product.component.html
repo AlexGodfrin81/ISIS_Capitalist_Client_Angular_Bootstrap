@@ -2,7 +2,8 @@
 
   <div class="products">
     <img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
-    <p>{{ this.product.quantite }} {{ this.product.name }} </p>
+    <p>{{ this.product.quantite }} {{ this.product.name }}
+      <br> Revenu : {{ this.product.revenu }} </p>
   </div>
 
   
@@ -11,6 +12,6 @@
     </mat-progress-bar>
    
       <button class="btnBuyProduct" ng-model="button" (click)="buyProduct()">
-        Buy {{qteMulti()}} monsters for {{numberTransformer.transform(totalCost) }} € </button>
+        Upgrade {{qteMulti()}} monsters for {{numberTransformer.transform(totalCost) }} <img id="img_monnaie" [src]="server+'icones/monnaie.png'"/> </button>
     </div>
   </div>

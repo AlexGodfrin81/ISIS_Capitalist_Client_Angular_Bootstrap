@@ -20,6 +20,7 @@ export class AppComponent {
   toasterService: ToasterService;
   username: string = "";
   productsComponent: any;
+  angelToClaim: number = 0;
 
   constructor(private service: RestserviceService, toasterService: ToasterService) {
     this.server = service.getServer();
@@ -54,11 +55,19 @@ export class AppComponent {
     return flag;
   }
 
+  calculNbAnge() {
+    if (150 * (this.world.score/Math.pow(10,15)) - this.world.totalangels < 1){
+      this.angelToClaim = 0;
+    }else{
+      this.angelToClaim = 150 * (this.world.score/Math.pow(10,15)) - this.world.totalangels;
+    }
+  }
+
   onProductionDone(p: Product) {
     //console.log("username : " + this.username);
    let bonus = 1;
      p.palliers.pallier.forEach(elt => {
-       if (p.quantite > elt.seuil && elt.typeratio == "gain"){
+       if (p.quantite >= elt.seuil && elt.typeratio == "gain"){
          bonus += elt.ratio;
        }
      });
@@ -75,7 +84,7 @@ export class AppComponent {
      if (bonus > 1) {bonus--;}
     this.world.money += p.revenu * p.quantite * bonus;
     this.world.score += p.revenu * p.quantite * bonus;
-
+    this.calculNbAnge();
   }
 
   onBuy(number: number) {

@@ -2,10 +2,9 @@
   <div class="row">
     <div class="col-md-4">
       <img id="worldlogo" [attr.src]="server+'icones/'+world.logo" />
-      <span id="worldname">{{world.name}}</span>
     </div>
     <div class="col-md-4" id="money">
-      <span><span [innerHTML]="world.money | bigvalue" class="money"></span> € </span>
+      <span><span [innerHTML]="world.money | bigvalue" class="money"></span> <img id="img_monnaie" [src]="server+'icones/monnaie.png'"/> </span>
       <button class="btnCommute" (click)="commutePrice()">{{ qtmulti }}</button>
     </div>
     <div class="col-md-4">
@@ -75,8 +74,8 @@
             Engager
           </button>
         </div>
+        <div class="ManagerName">{{ manager.name }} : {{ manager.seuil }} <img id="img_monnaie" [src]="server+'icones/monnaie.png'"/> </div>
       </div>
-      <div class="ManagerName">{{ manager.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
@@ -100,8 +99,8 @@
             Engager
           </button>
         </div>
+        <div class="upgradeName">{{ upgrade.name }} : {{ upgrade.seuil }} <img id="img_monnaie" [src]="server+'icones/monnaie.png'"/></div>
       </div>
-      <div class="upgradeName">{{ upgrade.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
@@ -116,13 +115,12 @@
     <!-- D'abord les unlocks individuel... -->
     <div *ngFor="let prod of world.products.product">
       <div *ngFor="let unlock of prod.palliers.pallier">
-        
         <div *ngIf="!unlock.unlocked" class="row" id="ManagerCell">
           <div class="col-md-4 text-center">
             <img [attr.src]="server + '/icones/' + unlock.logo" class="round" />
           </div>
+          <div class="UnlockName">{{ unlock.name }} | seuil : {{ unlock.seuil }}</div>
         </div>
-        <div class="UnlockName">{{ unlock.name }}</div>
       </div>
     </div>
     <!-- ...puis les allunlocks (qui demande le même niveau à tous les produits) -->
@@ -132,8 +130,8 @@
         <div class="col-md-4 text-center">
           <img [attr.src]="server + '/icones/' + unlock.logo" class="round" />
         </div>
+        <div class="UnlockName">{{ unlock.name }} | seuil : {{ unlock.seuil }}</div>
       </div>
-      <div class="UnlockName">{{ unlock.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
@@ -157,8 +155,8 @@
             Engager
           </button>
         </div>
+        <div class="angelupgradeName">{{ angelupgrade.name }} : {{ angelupgrade.seuil }} <img id="img_monnaie" [src]="server+'icones/angel.png'"/></div>
       </div>
-      <div class="angelupgradeName">{{ angelupgrade.name }}</div>
     </div>
   </div>
   <div class="app-modal-footer">
@@ -168,6 +166,12 @@
 <app-modal #investorsModal>
   <div class="app-modal-header">
     <h4 class="modal-title">Investors !</h4>
+  </div>
+  <div class="app-modal-body">
+    <p>Bonus par ange : 2%</p>
+    <p>Nombre d'ange actuel : {{ this.world.activeangels }}</p>
+    <p>Anges à gagner : {{ this.angelToClaim }}</p>
+    <button>Reset !</button>
   </div>
   <div class="app-modal-footer">
     <button type="button" class="btn btn-default" (click)="investorsModal.hide()">Close</button>

@@ -1,3 +1,7 @@
+#img_monnaie{
+    width: 8%;
+    height: 80%;
+}
 
 #productlogo {
     width: 135px;
@@ -7,7 +11,7 @@
 
 .progressbar {
     height: 15px;
-    width: 200px;
+    width: 250px;
     padding-bottom: 10px;
    
     
@@ -16,7 +20,7 @@
   
   .btnBuyProduct{
       height: 30px;
-      width: 200px;
+      width: 250px;
       position: relative;
       
   }
