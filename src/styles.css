@@ -13,3 +13,13 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.lesdeux {
+    position: relative;
+   }
+
+.lesecond {
+    position: absolute;
+    bottom: 70px;
+    margin-left: 120px;
+   }

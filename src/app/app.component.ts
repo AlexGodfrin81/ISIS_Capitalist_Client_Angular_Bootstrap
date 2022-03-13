@@ -62,7 +62,7 @@ export class AppComponent {
          bonus += elt.ratio;
        }
      });
-      this.world.allunlocks.pallier.forEach(elt => {
+     /* this.world.allunlocks.pallier.forEach(elt => {
        if (this.allProductAbove(elt.seuil) && elt.typeratio == "gain"){
          bonus += elt.ratio;
        }
@@ -72,7 +72,7 @@ export class AppComponent {
          this.productsComponent?.forEach((p: { calcAllUpgradesSpeed: (arg0: Pallier) => any; }) => p.calcAllUpgradesSpeed(elt));
        }
      });
-     if (bonus > 1) {bonus--;}
+     if (bonus > 1) {bonus--;}*/
     this.world.money += p.revenu * p.quantite * bonus;
     this.world.score += p.revenu * p.quantite * bonus;
 
