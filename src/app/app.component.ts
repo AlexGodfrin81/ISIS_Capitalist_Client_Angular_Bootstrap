@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { ProductComponent } from './product/product.component';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { ToasterModule, ToasterService } from 'angular2-toaster';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChildren(ProductComponent) public produits: QueryList<ProductComponent> | undefined;
   title = 'ISIS_CAPITALIST_CLIENT';
   world: World = new World();
   server: string;
@@ -17,6 +19,7 @@ export class AppComponent {
   price = ["x1", "x10", "x100", "xMax"];
   toasterService: ToasterService;
   username: string = "";
+  productsComponent: any;
 
   constructor(private service: RestserviceService, toasterService: ToasterService) {
     this.server = service.getServer();
@@ -59,17 +62,17 @@ export class AppComponent {
          bonus += elt.ratio;
        }
      });
-     /* this.world.allunlocks.pallier.forEach(elt => {
+      this.world.allunlocks.pallier.forEach(elt => {
        if (this.allProductAbove(elt.seuil) && elt.typeratio == "gain"){
          bonus += elt.ratio;
        }
      });
    this.world.allunlocks.pallier.forEach(elt => {
        if (this.allProductAbove(elt.seuil) && elt.typeratio == "vitesse"){
-         this.productsComponent?.forEach(p => p.calcAllUpgradesSpeed(elt));
+         this.productsComponent?.forEach((p: { calcAllUpgradesSpeed: (arg0: Pallier) => any; }) => p.calcAllUpgradesSpeed(elt));
        }
      });
-     if (bonus > 1) {bonus--;}*/
+     if (bonus > 1) {bonus--;}
     this.world.money += p.revenu * p.quantite * bonus;
     this.world.score += p.revenu * p.quantite * bonus;
 

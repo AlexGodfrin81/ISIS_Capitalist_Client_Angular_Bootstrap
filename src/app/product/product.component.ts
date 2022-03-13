@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { BigvaluePipe } from '../bigvalue.pipe';
 import { RestserviceService } from '../restservice.service';
-import { Product } from '../world';
+import { Product, Pallier } from '../world';
 
 declare var require: (arg0: string) => any;
 const ProgressBar = require("progressbar.js");
@@ -25,6 +25,7 @@ export class ProductComponent implements OnInit {
   totalCost: number = 0;
   numberTransformer : BigvaluePipe;
   canBuy: boolean = false;
+  bonus_all_speed: number = 0;
 
 
 
@@ -66,6 +67,12 @@ export class ProductComponent implements OnInit {
       this.calcScore();
     }, 100);
 
+  }
+
+  calcAllUpgradesSpeed(pallier:Pallier){
+    if (pallier.typeratio == "vitesse" && this.product.quantite > pallier.seuil){
+      this.bonus_all_speed += pallier.ratio;
+    }
   }
 
   startFabrication() {
@@ -146,6 +153,13 @@ export class ProductComponent implements OnInit {
     } else {
       alert("Vous n'avez pas assez d'argent");
     }
+    this.product.palliers.pallier.forEach(element => {
+      if (this.product.quantite > element.seuil){
+        element.unlocked = true;
+      }
+    });
+
+    this.notifyBuyProduct.emit(this.product);
     
     this.service.putProduct(this.product);
   }
@@ -154,7 +168,8 @@ export class ProductComponent implements OnInit {
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
   @Output()
   notifyBuy: EventEmitter<number> = new EventEmitter<number>();
-
+  @Output()
+  notifyBuyProduct: EventEmitter<Product> = new EventEmitter<Product>();
 
 
 }

@@ -29,7 +29,7 @@
   <div class="col-md-4 col-produit">
     <div class="row">
       
-      <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[0]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
@@ -37,7 +37,7 @@
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)"  [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
   </div>
