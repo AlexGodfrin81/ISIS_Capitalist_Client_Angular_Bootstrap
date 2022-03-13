@@ -7,11 +7,21 @@
 
 .progressbar {
     height: 15px;
-    width: 130px;
-    padding-left: 20px;
+    width: 200px;
+    padding-bottom: 10px;
+   
     
   }
 
-  p{
-      padding-left: 20px;
+  
+  .btnBuyProduct{
+      height: 30px;
+      width: 200px;
+      position: relative;
+      
   }
+
+  .products{
+     padding-bottom: 2em; 
+  }
+  

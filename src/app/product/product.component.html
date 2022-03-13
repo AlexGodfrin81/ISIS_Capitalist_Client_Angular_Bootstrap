@@ -1,15 +1,16 @@
-<div class="products">
-    <img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
-    <p>{{ this.product.name }}</p>
-</div>
+<div class="lesdeux">
 
-<div class="quantite">
-    {{ this.product.quantite }}
+  <div class="products">
+    <img id="productlogo" (click)="startFabrication()" [attr.src]="server+'icones/'+product?.logo" />
+    <p>{{ this.product.quantite }} {{ this.product.name }} </p>
   </div>
-<mat-progress-bar class="progressbar" [value]="progressbarvalue" >   
-</mat-progress-bar>
-<div class="col-md-12">
-  <button class="btnBuyProduct" ng-model="button"
-   (click)="buyProduct()">
-Buy {{qteMulti()}} monsters for {{numberTransformer.transform(totalCost) }} € </button>
-</div> 
+
+  
+   <div class="lesecond">
+    <mat-progress-bar class="progressbar" [value]="progressbarvalue">
+    </mat-progress-bar>
+   
+      <button class="btnBuyProduct" ng-model="button" (click)="buyProduct()">
+        Buy {{qteMulti()}} monsters for {{numberTransformer.transform(totalCost) }} € </button>
+    </div>
+  </div>

@@ -57,12 +57,6 @@ export class ProductComponent implements OnInit {
    }
 
   ngOnInit() {
-    /*console.log("j'ai été instancié")
-    this.progressbar = new
-      ProgressBar.Line(this.progressBarItem.nativeElement,
-        { strokeWidth: 50, color: '#00ff00' });
-    console.log("allo ?")*/
-
     setInterval(() => {
       this.calcScore();
     }, 100);
