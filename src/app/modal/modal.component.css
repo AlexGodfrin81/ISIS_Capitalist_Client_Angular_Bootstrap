@@ -1,0 +1,9 @@
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+  }
+  
+  .modal-content {
+    margin-left: -9em;
+    width: 800px;
+  }

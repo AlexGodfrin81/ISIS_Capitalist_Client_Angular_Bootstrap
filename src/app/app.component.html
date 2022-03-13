@@ -16,12 +16,14 @@
   </div>
   <div class="col-md-3">
     <div class="bouton">
-      <button id='unlocks' class="row">Unlocks</button><br />
-      <button id="cashUpgrades" class="row">Cash Upgrades</button><br />
-      <button id="angelUpgrades" class="row">Angels Upgrades</button><br />
+      <button id='unlocks' class="row" data-toggle="modal" (click)="unlocksModal.show()">Unlocks</button><br />
+      <button id="cashUpgrades" class="row" data-toggle="modal" (click)="cashUpgradesModal.show()">
+       <span class="badge">{{this.newUpgrade() ? "NEW" : "" }}</span>
+        Cash Upgrades</button><br />
+      <button id="angelUpgrades" class="row" data-toggle="modal" (click)="angelUpgradesModal.show()">Angels Upgrades</button><br />
       <button id="managers" class="row" data-toggle="modal" (click)="managersModal.show()">
       <span class="badge">{{this.newManager() ? "NEW" : "" }}</span>Managers</button> 
-      <button id="investors" class="row">Investors</button>
+      <button id="investors" class="row" data-toggle="modal" (click)="investorsModal.show()">Investors</button>
     </div>
   </div>
   <div class="col-md-4 col-produit">
@@ -79,6 +81,96 @@
   </div>
   <div class="app-modal-footer">
     <button type="button" class="btn btn-default" (click)="managersModal.hide()">Close</button>
+  </div>
+</app-modal>
+<app-modal #cashUpgradesModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Cash Upgrades !</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let upgrade of world.upgrades.pallier">
+      <!-- a completer pour réaliser le rendu d’une ligne de manager -->
+      <div *ngIf="!upgrade.unlocked" class="row" id="ManagerCell">
+        <div class="col-md-4 text-center">
+          <img [attr.src]="server + '/icones/' + upgrade.logo" class="round" />
+        </div>
+        <div class="col-md-8">
+          <button class="HireButton" 
+            (click)="buyUpgrade(upgrade)" ><!-- j'ai enlevé le disable qui bloque le modal, à voir après :[disabled]=" upgrade.seuil > world.money || world.products.product[upgrade.idcible - 1].quantite <= 0"  -->
+            Engager
+          </button>
+        </div>
+      </div>
+      <div class="upgradeName">{{ upgrade.name }}</div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="cashUpgradesModal.hide()">Close</button>
+  </div>
+</app-modal>
+<app-modal #unlocksModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Unlocks !</h4>
+  </div>
+  <div class="app-modal-body">
+    <!-- D'abord les unlocks individuel... -->
+    <div *ngFor="let prod of world.products.product">
+      <div *ngFor="let unlock of prod.palliers.pallier">
+        
+        <div *ngIf="!unlock.unlocked" class="row" id="ManagerCell">
+          <div class="col-md-4 text-center">
+            <img [attr.src]="server + '/icones/' + unlock.logo" class="round" />
+          </div>
+        </div>
+        <div class="UnlockName">{{ unlock.name }}</div>
+      </div>
+    </div>
+    <!-- ...puis les allunlocks (qui demande le même niveau à tous les produits) -->
+    <div *ngFor="let unlock of world.allunlocks.pallier">
+      <!-- a completer pour réaliser le rendu d’une ligne de manager -->
+      <div *ngIf="!unlock.unlocked" class="row" id="ManagerCell">
+        <div class="col-md-4 text-center">
+          <img [attr.src]="server + '/icones/' + unlock.logo" class="round" />
+        </div>
+      </div>
+      <div class="UnlockName">{{ unlock.name }}</div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="unlocksModal.hide()">Close</button>
+  </div>
+</app-modal>
+<app-modal #angelUpgradesModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Angel Upgrades !</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let angelupgrade of world.angelupgrades.pallier">
+      <!-- a completer pour réaliser le rendu d’une ligne de manager -->
+      <div *ngIf="!angelupgrade.unlocked" class="row" id="ManagerCell">
+        <div class="col-md-4 text-center">
+          <img [attr.src]="server + '/icones/' + angelupgrade.logo" class="round" />
+        </div>
+        <div class="col-md-8">
+          <button class="HireButton"  
+            (click)="hire(angelupgrade)" >
+            Engager
+          </button>
+        </div>
+      </div>
+      <div class="angelupgradeName">{{ angelupgrade.name }}</div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="angelUpgradesModal.hide()">Close</button>
+  </div>
+</app-modal>
+<app-modal #investorsModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title">Investors !</h4>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="investorsModal.hide()">Close</button>
   </div>
 </app-modal>
 
