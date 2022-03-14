@@ -9,9 +9,9 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { BigvaluePipe } from './bigvalue.pipe';
 import { ModalComponent } from './modal/modal.component';
-import { ToasterModule, ToasterService} from 'angular2-toaster';
 import { RestserviceService } from './restservice.service';
 import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     MatProgressBarModule,
-    ToasterModule,
+    MatSnackBarModule,
     FormsModule
   ],
-  providers: [RestserviceService, ToasterService],
+  providers: [RestserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

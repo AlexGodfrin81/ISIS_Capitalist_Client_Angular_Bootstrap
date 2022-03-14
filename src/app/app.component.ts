@@ -1,7 +1,7 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
-import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductComponent } from './product/product.component';
 
 @Component({
@@ -17,18 +17,16 @@ export class AppComponent {
   qtmulti: any;
   cpt :number = 0;
   price = ["x1", "x10", "x100", "xMax"];
-  toasterService: ToasterService;
   username: string = "";
   productsComponent: any;
   angelToClaim: number = 0;
 
-  constructor(private service: RestserviceService, toasterService: ToasterService) {
+  constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
     this.server = service.getServer();
     service.getWorld().then(world => {
       this.world = world;
       this.qtmulti = this.price[0];
     });
-    this.toasterService = toasterService;
   }
 
 
@@ -90,7 +88,7 @@ export class AppComponent {
       if (!unlock.unlocked && product.quantite >= unlock.seuil) {
         this.applyUpgrade(unlock);
         unlock.unlocked = true;
-        this.toasterService.pop("success", "Unlock " + unlock.name + " for " + product.name);
+        this.popMessage("Unlock "+unlock.name+" for product "+product.name+" unlocked!");     
       }
     }
     //Vérification si un allUnlock peut être débloqué à l'achat d'un produit
@@ -105,7 +103,7 @@ export class AppComponent {
         if(nbSeuil == this.world.products.product.length){
           this.applyUpgrade(allUnlock);
           allUnlock.unlocked = true;
-          this.toasterService.pop("success", "Allunlock " + allUnlock.name + " for all products unlocked");
+          this.popMessage("AllUnlock "+allUnlock.name+" for all products unlocked!");
         }
       }
     }
@@ -150,7 +148,7 @@ export class AppComponent {
       this.world.products.product.forEach(element => {
         if (element.id == manager.idcible) {
           element.managerUnlocked = true;
-          this.toasterService.pop("success", "Manager Hired ! ", element.name);
+          this.popMessage(manager.name+ " hired !");
 
         }
       });
@@ -181,6 +179,17 @@ export class AppComponent {
     return res;
   }
 
+  newAngel(){
+    let res = false;
+    this.world.angelupgrades.pallier.forEach(value => {
+      if (!value.unlocked) {
+        if (value.seuil < this.world.money) {
+          res = true;
+        }
+      }
+    });
+    return res;
+  }
 
   onUsernameChanged() {
     if (this.username == ""){
@@ -198,7 +207,23 @@ export class AppComponent {
       upgrade.unlocked = true;
       this.applyUpgrade(upgrade);
       this.service.putUpgrade(upgrade);
+      this.popMessage(upgrade.name+" bought!");
       
     }
   }
+
+  buyAngelupgrade(upgrade : Pallier){
+    if(this.world.activeangels >= upgrade.seuil){
+      this.world.activeangels -= upgrade.seuil;
+      upgrade.unlocked = true;
+      this.applyUpgrade(upgrade);
+      this.service.putAngelupgrade(upgrade);
+      this.popMessage(upgrade.name+" bought!");
+    }
+    
+  }
+  popMessage(message : string) : void {
+    this.snackBar.open(message, "OK", { duration : 5000 })
+  }
+
 }

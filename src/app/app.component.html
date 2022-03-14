@@ -1,3 +1,4 @@
+
 <div class="header">
   <div class="row">
     <div class="col-md-4">
@@ -19,7 +20,8 @@
       <button id="cashUpgrades" class="row" data-toggle="modal" (click)="cashUpgradesModal.show()">
        <span class="badge">{{this.newUpgrade() ? "NEW" : "" }}</span>
         Cash Upgrades</button><br />
-      <button id="angelUpgrades" class="row" data-toggle="modal" (click)="angelUpgradesModal.show()">Angels Upgrades</button><br />
+      <button id="angelUpgrades" class="row" data-toggle="modal" (click)="angelUpgradesModal.show()">
+        <span class="badge">{{this.newAngel() ? "NEW" : "" }}</span>Angels Upgrades</button><br />
       <button id="managers" class="row" data-toggle="modal" (click)="managersModal.show()">
       <span class="badge">{{this.newManager() ? "NEW" : "" }}</span>Managers</button> 
       <button id="investors" class="row" data-toggle="modal" (click)="investorsModal.show()">Investors</button>
@@ -32,25 +34,25 @@
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[1]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[1]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)"  [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[2]" class="product" (notifyProduction)="onProductionDone($event)"  [qtmulti]="qtmulti" [money]="world.money" (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
   </div>
   <div class="col-md-4 col-produit">
     <div class="row">
-      <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[3]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[4]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[4]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money"  (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
     <div class="row">
-      <app-product [prod]="world.products.product[5]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuy)="onBuy($event)">
+      <app-product [prod]="world.products.product[5]" class="product" (notifyProduction)="onProductionDone($event)" [qtmulti]="qtmulti" [money]="world.money" (notifyBuyProduct)="onBuyProductDone($event)" (notifyBuy)="onBuy($event)">
       </app-product>
     </div>
   </div>
@@ -96,7 +98,7 @@
         <div class="col-md-8">
           <button class="HireButton" 
             (click)="buyUpgrade(upgrade)" ><!-- j'ai enlevé le disable qui bloque le modal, à voir après :[disabled]=" upgrade.seuil > world.money || world.products.product[upgrade.idcible - 1].quantite <= 0"  -->
-            Engager
+            Acheter
           </button>
         </div>
         <div class="upgradeName">{{ upgrade.name }} : {{ upgrade.seuil }} <img id="img_monnaie" [src]="server+'icones/monnaie.png'"/></div>
@@ -151,7 +153,7 @@
         </div>
         <div class="col-md-8">
           <button class="HireButton"  
-            (click)="hire(angelupgrade)" >
+            (click)="buyAngelupgrade(angelupgrade)" >
             Engager
           </button>
         </div>

@@ -42,3 +42,7 @@ button:hover {
     margin: 5px;
     padding: 5px;
 }
+#ManagerCell{
+    border: solid 4px rgba(95, 16, 16, 0.801);
+    margin: 15px;
+}
